@@ -1,20 +1,21 @@
 class Solution:
     def sumEvenAfterQueries(self, nums: List[int], queries: List[List[int]]) -> List[int]:
-        result_list = []
-        S = sum(x for x in nums if x%2 ==0)
-        for query in queries: 
-            if nums[query[1]] % 2==0: 
-                temp = nums[query[1]]
-                nums[query[1]] += query[0]
-                if nums[query[1]] %2==0:
-                    S+= query[0]
+        S= sum([x for x in nums if x%2==0])
+        result_list =[]
+        for q in queries: 
+            if nums[q[1]] %2 ==0 : 
+                if q[0] % 2 ==0:
+                    S+=q[0]
+                    print(S)
                 else: 
-                    S-= temp
-            else:
-                nums[query[1]] += query[0]
-                if nums[query[1]] %2==0:
-                    S+= nums[query[1]]
+                    S-=nums[q[1]]
+                nums[q[1]]+=q[0]                     
+            else: 
+                if (nums[q[1]]+q[0]) % 2 ==0:
+                    nums[q[1]]+=q[0]
+                    S+=nums[q[1]]
+                    print(S)
+                else: 
+                    nums[q[1]]+=q[0]
             result_list.append(S)
-        
         return result_list
-                    
