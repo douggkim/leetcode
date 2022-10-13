@@ -13,8 +13,6 @@ class Solution:
         if len(node_list) <=1: 
             node_list.append(head)
             return None
-        print(node_list)
-        print(node_list[len(node_list)-n-1])
         if node_list[len(node_list)-n-1].next: 
             node_list[len(node_list)-n-1].next = node_list[len(node_list)-n-1].next.next 
         elif node_list[len(node_list)-n-1] == node_list[len(node_list)-1]:
