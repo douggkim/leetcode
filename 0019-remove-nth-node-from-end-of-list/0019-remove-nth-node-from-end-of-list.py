@@ -6,17 +6,19 @@
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
         node_list = []
-        pointer = head
-        while pointer is not None: 
+        pointer = head 
+        
+        while pointer: 
             node_list.append(pointer)
             pointer = pointer.next 
-        if len(node_list) <=1: 
-            node_list.append(head)
-            return None
-        if node_list[len(node_list)-n-1].next: 
-            node_list[len(node_list)-n-1].next = node_list[len(node_list)-n-1].next.next 
-        elif node_list[len(node_list)-n-1] == node_list[len(node_list)-1]:
-            head = head.next
-        else:
+        
+        if len(node_list) == 0 or len(node_list) == 1: 
             return None 
-        return head 
+        elif node_list[len(node_list)-n]==head: 
+            head=head.next
+        elif node_list[len(node_list)-n]==node_list[len(node_list)-1]:
+            node_list[len(node_list)-2].next= None 
+        else: 
+            node_list[len(node_list)-n-1].next = node_list[len(node_list)-n-1].next.next
+        
+        return head
