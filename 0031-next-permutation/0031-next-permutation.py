@@ -4,21 +4,19 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         for i in range(len(nums)-2,-1,-1):
-            print(i)
-            if nums[i+1]>nums[i]:
-                min=100000
-                for j in range(i,len(nums)): 
-                    if nums[j]>nums[i]:
-                        if min>nums[j]:
+            print(f"i:{i} / nums[i]:{nums[i]}")
+            if nums[i]< nums[i+1]:
+                min = 100000
+                for j in range(i+1,len(nums)):
+                    if nums[i]< nums[j]:
+                        if min > nums[j]:
                             min = nums[j]
                             min_idx = j
-                print(f"min {min}")
-                nums[min_idx] = nums[i]
+                temp = nums[i]
                 nums[i] = min
+                nums[min_idx] = temp
                 nums[i+1:] = sorted(nums[i+1:])
-
-                break
-            if i==0 :
-                nums.sort()
                 break
             
+            if i == 0 : 
+                nums.sort() 
