@@ -1,14 +1,12 @@
 # Write your MySQL query statement below
-WITH MT AS 
-(SELECT O.product_id, MAX(order_date) max_order_date
-FROM Orders O 
-GROUP BY O.product_id)
+WITH MaxDate AS 
+(SELECT product_id, MAX(order_date) max_date 
+FROM Orders O
+GROUP BY product_id) 
 
 SELECT P.product_name, O.product_id, O.order_id, O.order_date
-FROM Orders O 
-INNER JOIN MT
-ON MT.product_id = O.product_id 
-AND O.order_date = MT.max_order_date  
-INNER JOIN Products P 
-ON P.product_id = O.product_id 
-ORDER BY P.product_name, O.product_id, O.order_id
+FROM  Orders O, Products P, MaxDate M
+WHERE O.product_id = P.product_id 
+AND O.order_date = M.max_date 
+AND O.product_id = M.product_id
+ORDER BY product_name ASC, product_id ASC, order_id ASC 
