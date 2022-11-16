@@ -13,7 +13,6 @@ class Solution:
                 return m
             elif m*m < x : 
                 l = m+1 
-                
             else: 
                 u = m-1
                 
