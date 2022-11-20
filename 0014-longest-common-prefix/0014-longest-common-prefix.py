@@ -14,7 +14,6 @@ class Solution:
             return ""
         result = ""
         for i in range(min):
-            print(f"i{i}")
             for j in range(len(strs)): 
                 
                 if j == 0 : 
@@ -22,11 +21,9 @@ class Solution:
                     print(target)
                 
                 elif j == len(strs)-1: 
-                    print(strs[j][i])
                     if strs[j][i] == target: 
-                        print(f"adding to target: {target}")
                         result = result+target
-                        print(f"result: {result}")
+                        
                     else: 
                         return result 
                 
