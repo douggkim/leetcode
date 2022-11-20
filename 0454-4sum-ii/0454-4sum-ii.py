@@ -11,6 +11,12 @@ class Solution:
                         result_dict[i][nums[i][j]] = 1
                     else: 
                         result_dict[i][nums[i][j]] += 1
+                elif i == 3 : 
+                    if (-nums[i][j]) in result_dict[i-1]: 
+                        if 0 in result_dict[i]: 
+                            result_dict[i][0] += result_dict[i-1][-nums[i][j]]
+                        else: 
+                            result_dict[i][0] = result_dict[i-1][-nums[i][j]]
                 else: 
                     
                     for k in result_dict[i-1].keys():
