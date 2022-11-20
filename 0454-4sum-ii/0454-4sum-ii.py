@@ -1,32 +1,20 @@
 class Solution:
     def fourSumCount(self, nums1: List[int], nums2: List[int], nums3: List[int], nums4: List[int]) -> int:
-        result_dict = {0:{},1:{},2:{},3:{}}
-        nums = [nums1, nums2, nums3, nums4]
+        result_dict = {} 
+        cnt = 0 
         n = len(nums1)
         
-        for i in range(len(nums)): 
+        for i in range(n):
             for j in range(n): 
-                if i == 0 : 
-                    if nums[i][j] not in result_dict[i]: 
-                        result_dict[i][nums[i][j]] = 1
-                    else: 
-                        result_dict[i][nums[i][j]] += 1
-                elif i == 3 : 
-                    if (-nums[i][j]) in result_dict[i-1]: 
-                        if 0 in result_dict[i]: 
-                            result_dict[i][0] += result_dict[i-1][-nums[i][j]]
-                        else: 
-                            result_dict[i][0] = result_dict[i-1][-nums[i][j]]
+                if (nums1[i]+nums2[j]) not in result_dict: 
+                    result_dict[nums1[i]+nums2[j]] = 1
                 else: 
+                    result_dict[nums1[i]+nums2[j]] += 1 
+        
+        for i in range(n):
+            for j in range(n):
+                if -(nums3[i]+nums4[j]) in result_dict: 
+                    cnt += result_dict[-(nums3[i]+nums4[j])]
                     
-                    for k in result_dict[i-1].keys():
-                        
-                        if (k+nums[i][j]) not in result_dict[i]:
-                            result_dict[i][k+nums[i][j]] = result_dict[i-1][k]
-                        else: 
-                            result_dict[i][k+nums[i][j]] += result_dict[i-1][k]
-
-        if 0 in result_dict[3]:
-            return result_dict[3][0]
-        else: 
-            return 0
+        return cnt 
+                    
