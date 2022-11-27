@@ -1,25 +1,21 @@
-class Solution:
-    def fizzBuzz(self, n: int) -> List[str]:
-        #         check_l 
-        check_l =[0]*10000
-        if check_l[n]!=0: 
-            return check_l[1:n+1]
-        
-        for i in range(1,n+1):
-            if i % 15 == 0: 
-                check_l[i] = 'FizzBuzz'
-            elif i%3 ==0: 
-                check_l[i] = 'Fizz'
-            elif i%5 == 0 : 
-                check_l[i] = 'Buzz'
-            else: 
-                check_l[i] = str(i)
-                
-        return check_l[1:n+1]
-            
-            
+class Solution(object):
+    def fizzBuzz(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        # return list 
+        answer = []
 
-#  check conditions 
-#  add to check_l 
+        # compare the integers through loop 
+        for i in range(n):
+            if (i+1)%3 == 0 and (i+1)%5 == 0: 
+                answer.append('FizzBuzz')
+            elif (i+1)%3 == 0: 
+                answer.append('Fizz') 
+            elif (i+1)%5 == 0: 
+                answer.append('Buzz')
+            else: 
+                answer.append(str(i+1)) 
         
-        
+        return answer
