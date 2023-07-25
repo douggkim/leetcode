@@ -6,15 +6,14 @@ class KthLargest:
         heapq.heapify(self.heap)
         
         while len(self.heap) > k: 
-            heapq.heappop(self.heap)
+            heapq.heappop(self.heap) 
         
-
     def add(self, val: int) -> int:
         heapq.heappush(self.heap, val)
         
         while len(self.heap) > self.k: 
             heapq.heappop(self.heap)
-
+            
         return self.heap[0]
         
 
