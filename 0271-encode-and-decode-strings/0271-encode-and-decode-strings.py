@@ -2,18 +2,37 @@ class Codec:
     def encode(self, strs: List[str]) -> str:
         """Encodes a list of strings to a single string.
         """
-        encoded_message = "ㄱ".join(strs) 
-        print(encoded_message)
-        return encoded_message
+        encoded_str = "" 
         
+        for s in strs: 
+            encoded_str += s.replace('/','//') + "/:"
+        
+        return encoded_str 
 
     def decode(self, s: str) -> List[str]:
         """Decodes a single string to a list of strings.
         """
-        decoded_list = s.split("ㄱ")
-        print(decoded_list)
+        decoded_str = [] 
         
-        return decoded_list
+        decoded_word = "" 
+        i = 0 
+        
+        while i < len(s): 
+            if s[i:i+2] == '//': 
+                decoded_word += '/'
+                i += 2 
+                
+            elif s[i:i+2] == '/:': 
+                decoded_str.append(decoded_word) 
+                decoded_word = ""
+                i += 2                 
+                
+            else: 
+                decoded_word += s[i] 
+                i += 1 
+        
+        return decoded_str
+            
         
 
 
