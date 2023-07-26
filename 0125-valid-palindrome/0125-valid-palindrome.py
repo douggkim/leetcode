@@ -1,18 +1,21 @@
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        # Convert to lower 
-        s = s.lower() 
-        # Remove all the other characters 
-        convert_l = []
-        for i in range(len(s)): 
-            if ord('a')<=ord(s[i])<=ord('z') or s[i].isnumeric(): 
-                convert_l.append(s[i])
+        formatted_s = ""
         
-        s=''.join(convert_l)
-        print(s)
-         
-        if s == s[::-1]:
-            return True
-        else:
-            return False
-        # use [::-1]
+        for c in s: 
+            lower_c = c.lower()
+            if ('a' <= lower_c and lower_c <='z')  or lower_c.isnumeric(): 
+                formatted_s += lower_c
+                
+        start = 0 
+        end = len(formatted_s)-1 
+        
+        while start <= end: 
+            if formatted_s[start] != formatted_s[end]: 
+                return False 
+            else: 
+                start += 1 
+                end -= 1 
+                
+        return True
+        
