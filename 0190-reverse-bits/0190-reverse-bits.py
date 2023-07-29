@@ -1,28 +1,18 @@
 class Solution:
     def reverseBits(self, n: int) -> int:
-        tmp = n
-        bin_str = ''
-        # convert to 2 bits
-        while tmp > 1 : 
-            bin_str = bin_str + str(tmp%2)
-            tmp //= 2
+        tmp_n = n 
+        bits = ""
         
-        if tmp == 1 : 
-            bin_str = bin_str + '1'
-        else: 
-            bin_str = bin_str + '0'
+        while tmp_n >= 1: 
+            bits += str(tmp_n % 2)
+            tmp_n //= 2 
             
-        while len(bin_str) < 32: 
-            bin_str = bin_str + '0'
+        zero_nums = 32-len(bits)
+        bits = bits + "0"*zero_nums
         
         result = 0 
-        for i in range(len(bin_str)-1,-1,-1): 
-            result += (int(bin_str[i])*(2**(len(bin_str)-1-i)))
-            
-        return result
-            
+        for i in range(0,len(bits)): 
+            result += int(bits[i])*(2**(31-i))
         
-        # make it 32 bits length 
-        # reverse the 2 bits string
-        # convert the rev string to int
-        
+        return result 
+            
