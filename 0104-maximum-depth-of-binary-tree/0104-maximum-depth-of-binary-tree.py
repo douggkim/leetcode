@@ -7,21 +7,23 @@
 class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
         if root == None: 
-            return 0
-        curr = root 
-        l_result = 0 
-        r_result = 0
-        
-        if curr.left == None and curr.right==None: 
-            return 1
+            return 0 
         else: 
-            if curr.left : 
-                l_result = self.maxDepth(curr.left)+1
+            cnt = self.countDepth(root, 1)
+            return cnt
+        
+    def countDepth(self, origin:TreeNode, cnt:int) -> int: 
+        cnt_l = 0 
+        cnt_r = 0 
+        
+        if origin.left != None: 
+            cnt_l = self.countDepth(origin.left, cnt+1)
+        if origin.right != None: 
+            cnt_r = self.countDepth(origin.right, cnt+1)
             
-            if curr.right : 
-                r_result = self.maxDepth(curr.right)+1
+        higher_cnt = max(cnt_l, cnt_r)
+        max_cnt = max(cnt, higher_cnt)
         
-        final = max(l_result, r_result)
+        return max_cnt
         
-        return final
         
