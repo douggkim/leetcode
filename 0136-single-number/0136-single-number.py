@@ -1,11 +1,5 @@
 class Solution:
     def singleNumber(self, nums: List[int]) -> int: 
-        result_d = set()  
+        expected_sum = sum(list(set(nums))) * 2        
         
-        for n in nums: 
-            if n in result_d: 
-                result_d.remove(n)
-            else: 
-                result_d.add(n)
-        
-        return list(result_d)[0]
+        return expected_sum-sum(nums)
