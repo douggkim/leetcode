@@ -1,12 +1,11 @@
 class Solution:
-    def singleNumber(self, nums: List[int]) -> int:
-        once = set() 
-        twice = set() 
-    
-        for i in nums: 
-            if i in once: 
-                twice.add(i)
-            else: 
-                once.add(i)
+    def singleNumber(self, nums: List[int]) -> int: 
+        result_d = set()  
         
-        return list(once-twice)[0]
+        for n in nums: 
+            if n in result_d: 
+                result_d.remove(n)
+            else: 
+                result_d.add(n)
+        
+        return list(result_d)[0]
