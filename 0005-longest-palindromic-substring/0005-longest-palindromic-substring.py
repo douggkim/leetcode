@@ -1,38 +1,42 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        # EC : even length palindrome 
-        # loop throuh the chracter
-        maxlen = 1 
-        result_s = ""
+        # odd 
+        max_len = 0 
+        longest_pal = "" 
         
-        for i in range(len(s)): 
+        str_len = len(s)
+        for i in range(str_len): 
             l = i 
             r = i 
             
-            
-            while l>-1 and r < len(s):
+            while l >= 0 and r < str_len: 
                 if s[l] == s[r]: 
-                    if r-l+1 >= maxlen:
-                        maxlen = r-l+1 
-                        result_s = s[l:r+1]
-                    l -= 1
-                    r += 1 
-                else: 
-                    break
-                
-            
-            l = i
-            r = i+1 
-            
-            while l>-1 and r < len(s):
-                if s[l] == s[r]: 
-                    if r-l+1 >= maxlen:
-                        maxlen = r-l+1 
-                        result_s = s[l:r+1]
-                    l -= 1
-                    r += 1
+                    if max_len < r-l+1:
+                        max_len = r-l+1
+                        longest_pal = s[l:r+1]
                 else: 
                     break 
                     
-        return result_s
+                l -= 1 
+                r += 1 
+            
+        
+        # even 
+        
+            l = i 
+            r = i+1 
+            
+            while l >= 0 and r < str_len: 
+                if s[l] == s[r]: 
+                    if max_len < r-l+1: 
+                        max_len = r-l+1 
+                        longest_pal = s[l:r+1]
+                    
+                else: 
+                    break 
+                
+                l -= 1 
+                r += 1
+        
+        return longest_pal
         
