@@ -24,7 +24,7 @@ class Solution:
                 max_cnt = length
             else: 
                 result_dict[s[i-length+1]]-=1
-                majority = max(result_dict.values())
+                
                 length -= 1
         
         return max_cnt
