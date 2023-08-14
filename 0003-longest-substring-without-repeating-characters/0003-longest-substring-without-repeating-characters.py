@@ -8,6 +8,7 @@ class Solution:
                 ss += c
             else:
                 idx = ss.index(c)
+                
                 if idx+1 <= len(ss)-1:
                     ss = ss[idx+1:] + c
                 else: 
