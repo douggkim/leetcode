@@ -9,21 +9,20 @@ class Solution:
         if root == None: 
             return [] 
         
-        next_ = deque([root])
-        result_l = []
+        next_l = deque([root])
+        result_l = [] 
         
-        while next_: 
-            curr = next_ 
-            next_ = deque() 
+        while next_l: 
+            curr = next_l 
+            next_l = deque() 
             
             while curr: 
                 node = curr.popleft() 
                 
-                if node.left: 
-                    next_.append(node.left)
+                if node.left:
+                    next_l.append(node.left)
                 if node.right: 
-                    next_.append(node.right)
-                
+                    next_l.append(node.right)
             result_l.append(node.val)
         
-        return result_l 
+        return result_l
