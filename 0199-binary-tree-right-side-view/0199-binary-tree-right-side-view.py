@@ -7,13 +7,13 @@
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         if root == None: 
-            return []
+            return [] 
         
-        next_level = deque([root,])
-        right_side = [] 
+        next_level = deque([root])
+        result_l = [] 
         
         while next_level: 
-            curr_level = next_level
+            curr_level = next_level 
             next_level = deque() 
             
             while curr_level: 
@@ -23,10 +23,7 @@ class Solution:
                     next_level.append(node.left)
                 if node.right: 
                     next_level.append(node.right)
-            
-            right_side.append(node.val)
+                
+            result_l.append(node.val)
         
-        return right_side
-            
-        
-        
+        return result_l
