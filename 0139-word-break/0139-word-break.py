@@ -1,15 +1,17 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        @cache
-        def dp(i:int): 
-            if i < 0 :
-                return True 
-            
-            for word in wordDict: 
-                if s[i-len(word)+1: i+1] == word and dp(i-len(word)):
-                    return True 
-                 
-            return False
+        dp = [False] * len(s)
         
-        return dp(len(s)-1)
+        for i, c in enumerate(s): 
+            for word in wordDict: 
+                if i < len(word)-1:
+                    continue 
+                
+                if i == len(word)-1 or dp[i-len(word)]== True: 
+                    if s[i-len(word)+1:i+1] == word: 
+                        dp[i] = True 
+                        break
+        return dp[-1]
+                
+            
         
