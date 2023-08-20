@@ -6,27 +6,31 @@
 #         self.right = right
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        
         if root == None: 
             return [] 
         
-        traversal_l = [] 
-        traversal_l.append([root.val])
+        result_l = [[root.val]] 
+        curr_node = deque([root])
         
-        def searchTree( node: TreeNode, depth:int): 
-            if node.left != None: 
-                if depth+1 > len(traversal_l)-1:
-                    traversal_l.append([node.left.val])
-                else: 
-                    traversal_l[depth+1].append(node.left.val)
-                searchTree(node.left, depth+1)
-            if node.right != None: 
-                if depth+1 > len(traversal_l) -1 : 
-                    traversal_l.append([node.right.val])
-                else: 
-                    traversal_l[depth+1].append(node.right.val)
-                searchTree(node.right, depth+1)
+        while curr_node: 
+            next_node = curr_node
+            curr_node = deque()
+            tmp_l = [] 
+            
+            while len(next_node)>0: 
+                node = next_node.popleft()
+                
+                if node.left != None: 
+                    curr_node.append(node.left)
+                    tmp_l.append(node.left.val)
+                if node.right != None: 
+                    curr_node.append(node.right)
+                    tmp_l.append(node.right.val)
+            if len(tmp_l) != 0: 
+                result_l.append(tmp_l)
         
-        searchTree(root, 0)
-        
-        return traversal_l
-        
+        return result_l
+                    
+                
+            
