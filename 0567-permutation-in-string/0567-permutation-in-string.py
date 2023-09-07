@@ -25,6 +25,7 @@ class Solution:
                 if window_dict[k] != 0: 
                     if permute_dict.get(k,0) == 0 or permute_dict[k] != v: 
                         is_found = False
+                        break 
             
             if is_found == True: 
                 return is_found 
