@@ -1,32 +1,49 @@
 class Solution:
     def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:
-        result = []
-        line = []
-        line_length = 0
-
-        for word in words:
-            if line_length + len(line) + len(word) <= maxWidth:
-                line.append(word)
-                line_length += len(word)
-            else:
-                spaces_to_add = maxWidth - line_length
-                if len(line) == 1:
-                    result.append(line[0] + ' ' * spaces_to_add)
-                else:
-                    extra_spaces = spaces_to_add % (len(line) - 1)
-                    space_per_gap = spaces_to_add // (len(line) - 1)
-                    line_str = ''
-                    for i in range(len(line) - 1):
-                        line_str += line[i] + ' ' * (space_per_gap + (i < extra_spaces))
-                    line_str += line[-1]
-                    result.append(line_str)
+        words_len = len(words)
+        i = 0
+        counter = 0  
+        tmp_l = []  
+        result_l = [] 
+        
+        while i < words_len: 
+            counter += len(words[i])
+            tmp_l.append(words[i])
+            if i == words_len-1:
+                pad_num = maxWidth - counter - (len(tmp_l)-1)
+                input_word = " ".join(tmp_l)
+                input_word = input_word + " "*pad_num
+                result_l.append(input_word)
+            
+            elif counter+(len(tmp_l))+len(words[i+1]) > maxWidth: 
+                pad_num = maxWidth - counter
+                if len(tmp_l) == 1: 
+                    input_word = tmp_l[0]+pad_num*" "
+                else: 
+                    pad_place_num = len(tmp_l)-1
+                    padding_per_word = pad_num//pad_place_num
+                    leftover_pad = pad_num - padding_per_word*pad_place_num
+                    input_word = "" 
+                    for order,word in enumerate(tmp_l): 
+                        input_word = input_word + word 
+                        if order != len(tmp_l)-1: 
+                            input_word = input_word + " "*padding_per_word
+                            if leftover_pad != 0: 
+                                input_word = input_word + " "
+                                leftover_pad -= 1 
                 
-                line = [word]
-                line_length = len(word)
+                result_l.append(input_word)
+                counter = 0 
+                tmp_l = [] 
+                
+            i += 1 
+            
+        
+        
+        return result_l 
 
-        # Handle the last line
-        last_line = ' '.join(line)
-        last_line += ' ' * (maxWidth - len(last_line))
-        result.append(last_line)
 
-        return result
+                    
+
+        # if more than 2 
+        # if 1 word 
