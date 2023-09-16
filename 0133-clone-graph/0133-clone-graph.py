@@ -8,29 +8,25 @@ class Node:
 
 from typing import Optional
 class Solution:        
-    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
-        visited = {} 
+    def __init__(self):
+        self.visited = {} 
         
+    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
         if node == None: 
             return node 
         
-        visited[node] = Node(node.val)
+        if node in self.visited: 
+            return self.visited[node]
+         
+        self.visited[node] = Node(node.val)
         
-        dq = deque([node])
+        if node.neighbors: 
+            self.visited[node].neighbors = [self.cloneGraph(i) for i in node.neighbors]
         
-        while dq: 
-            tmp_node = dq.popleft() 
-            
-            for neigh in tmp_node.neighbors: 
-                if neigh not in visited: 
-                    visited[neigh] = Node(neigh.val)
-                    dq.append(neigh)
-                visited[tmp_node].neighbors.append(visited[neigh])
+        return self.visited[node]
         
-        return visited[node]
-                    
-            
-            
+        
+
             
         
             
