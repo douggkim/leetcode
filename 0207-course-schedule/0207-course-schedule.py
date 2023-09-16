@@ -1,30 +1,39 @@
 class Solution: 
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        courses = defaultdict(list)
+        course_dict = {}
+        
+        for preq in prerequisites:
+            if preq[0] in course_dict: 
+                course_dict[preq[0]].append(preq[1])
+            else: 
+                course_dict[preq[0]] = [preq[1]]
+        
+        visited = set() 
 
-        for c, p in prerequisites:
-            courses[p].append(c)
-
-        seen = set()
-
-        def check_cycle(cur, path):
-            if cur in path:
+        def dfs(course, curr_visit): 
+            if course in curr_visit: 
                 return True
-            if cur in seen:
+            if course in visited: 
                 return False
+            
+            curr_visit.add(course)
+            if course in course_dict: 
+                preqs = course_dict[course]
 
-            path.add(cur)
-            for child in courses[cur]:
-                if check_cycle(child, path):
-                    return True
-            path.remove(cur)
+                for preq in preqs: 
+                    is_cycle = dfs(preq, curr_visit)
+                    if is_cycle: 
+                        return True
+                    if preq in curr_visit: 
+                        curr_visit.remove(preq)
+                
 
-            seen.add(cur)
+            visited.add(course)
+            return False 
 
-            return False
-
-        for cur in range(numCourses):
-            if check_cycle(cur, set()):
+        for course in course_dict.keys(): 
+            is_cycle = dfs(course, set())
+            if is_cycle: 
                 return False
-
+        
         return True
