@@ -1,51 +1,55 @@
+from collections import defaultdict
 class Solution:
-    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        preq_dict = {}
-        
-        for preq in prerequisites: 
-            if preq[0] in preq_dict: 
-                preq_dict[preq[0]].append(preq[1])
-            else: 
-                preq_dict[preq[0]] = [preq[1]] 
-                
-        visited = set() 
-        visited_l = [] 
-        def search_cycle(course, curr_visit): 
-            if course in curr_visit: 
-                return True 
-            
-            if course in visited: 
-                return False 
-            
-            curr_visit.add(course)
-            if course in preq_dict: 
-                preqs = preq_dict[course]
-                
-                for preq in preqs: 
-                    is_cycle = search_cycle(preq, curr_visit)
-                    if is_cycle:
-                        return True
-            curr_visit.remove(course)
-            visited.add(course)
-            if course not in set(visited_l): 
-                visited_l.append(course)
-            
-            
-            return False 
-        
-        for course in range(numCourses): 
-            if course in preq_dict: 
-                is_cycle = search_cycle(course, set())
-                if is_cycle: 
-                    return [] 
-            elif course not in visited_l: 
-                visited_l.append(course)
-        
-        return visited_l 
-            
-            
-        
-        
-                    
-            
-                
+
+    WHITE = 1
+    GRAY = 2
+    BLACK = 3
+
+    def findOrder(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: List[int]
+        """
+
+        # Create the adjacency list representation of the graph
+        adj_list = defaultdict(list)
+
+        # A pair [a, b] in the input represents edge from b --> a
+        for dest, src in prerequisites:
+            adj_list[src].append(dest)
+
+        topological_sorted_order = []
+        is_possible = True
+
+        # By default all vertces are WHITE
+        color = {k: Solution.WHITE for k in range(numCourses)}
+        def dfs(node):
+            nonlocal is_possible
+
+            # Don't recurse further if we found a cycle already
+            if not is_possible:
+                return
+
+            # Start the recursion
+            color[node] = Solution.GRAY
+
+            # Traverse on neighboring vertices
+            if node in adj_list:
+                for neighbor in adj_list[node]:
+                    if color[neighbor] == Solution.WHITE:
+                        dfs(neighbor)
+                    elif color[neighbor] == Solution.GRAY:
+                         # An edge to a GRAY vertex represents a cycle
+                        is_possible = False
+
+            # Recursion ends. We mark it as black
+            color[node] = Solution.BLACK
+            topological_sorted_order.append(node)
+
+        for vertex in range(numCourses):
+            # If the node is unprocessed, then call dfs on it.
+            if color[vertex] == Solution.WHITE:
+                dfs(vertex)
+
+        return topological_sorted_order[::-1] if is_possible else []
