@@ -24,8 +24,8 @@ class Solution:
                     is_cycle = dfs(preq, curr_visit)
                     if is_cycle: 
                         return True
-                    if preq in curr_visit: 
-                        curr_visit.remove(preq)
+                    
+            curr_visit.remove(course)
                 
 
             visited.add(course)
