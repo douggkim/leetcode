@@ -7,16 +7,13 @@
 
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        def dfs(node, min_val, max_val):
-            if not node:
-                return True  # An empty tree is a valid BST
-
-            if not (min_val < node.val < max_val):
-                return False  # Node's value is not within the valid range
-
-            # Check left subtree with updated max_val
-            # Check right subtree with updated min_val
+        def dfs(node, min_val, max_val): 
+            if not node: 
+                return True 
+            
+            if not (min_val<node.val<max_val): 
+                return False
+            
             return dfs(node.left, min_val, node.val) and dfs(node.right, node.val, max_val)
-
-        # Call the DFS function with initial min_val and max_val as negative and positive infinity
-        return dfs(root, float('-inf'), float('inf'))
+        
+        return dfs(root, -math.inf, math.inf)
