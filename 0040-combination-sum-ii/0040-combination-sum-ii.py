@@ -14,7 +14,7 @@ class Solution:
             for i in range(start, n): 
                 if i != start and candidates[i] == candidates[i-1]: 
                     continue  
-                new_tuple = tuple(list(tmp_t)+[candidates[i]])
+                new_tuple = tmp_t+tuple([candidates[i]])
                 backtrack(new_tuple, i+1, remain-candidates[i])
         
         backtrack((), 0, target)
