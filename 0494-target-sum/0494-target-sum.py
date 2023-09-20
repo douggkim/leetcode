@@ -11,6 +11,5 @@ class Solution:
                 if dp[i-1][total+j]>0: 
                     dp[i][total+j+nums[i]] += dp[i-1][total+j]
                     dp[i][total+j-nums[i]] += dp[i-1][total+j]
-        for row in dp: 
-            print(row)
+        
         return 0 if abs(S) > total else dp[len(nums)-1][total+S]
